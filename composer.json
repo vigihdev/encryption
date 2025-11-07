@@ -1,0 +1,49 @@
+{
+    "name": "vigihdev/encryption",
+    "description": "Powerful and easy-to-use encryption and decryption library for PHP.",
+    "type": "library",
+    "keywords": [
+        "php",
+        "encryption",
+        "cryptography",
+        "security",
+        "decrypt"
+    ],
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Vigih Dev",
+            "email": "vigihdev@gmail.com",
+            "role": "developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Vigihdev\\Encryption\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vigihdev\\Encryption\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "process-timeout": 0
+    },
+    "scripts": {
+        "test": "phpunit",
+        "server": "php -S localhost:1932 server.php"
+    },
+    "require": {
+        "php": "^8.1",
+        "defuse/php-encryption": "^2.4",
+        "symfony/dotenv": "^6.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "10.5.x-dev",
+        "vigihdev/symfony-bridge-config": "^1.0",
+        "symfony/console": "^6.4"
+    }
+}
