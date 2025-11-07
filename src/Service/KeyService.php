@@ -35,22 +35,34 @@ final class KeyService implements KeyServiceContract
             }
         }
 
-        if (!is_file($keyFilepath)) {
-            throw new InvalidArgumentException("File kunci enkripsi '{$keyFilepath}' tidak ditemukan atau bukan file.", 1);
-        }
-
         $this->keyFilepath = $keyFilepath;
     }
 
     /**
-     * getKey
+     * loadKey
      *
      * Memuat kunci dari file dan mengembalikannya sebagai objek Key.
      *
      * @return Key Objek kunci enkripsi.
      */
-    public function getKey(): Key
+    public function loadKey(): Key
     {
+        if (!is_file($this->keyFilepath)) {
+            throw new InvalidArgumentException("File kunci enkripsi '{$this->keyFilepath}' tidak ditemukan atau bukan file.", 1);
+        }
         return Key::loadFromAsciiSafeString(file_get_contents($this->keyFilepath));
+    }
+
+    /**
+     * generateKey
+     *
+     * Membuat kunci enkripsi baru dan menyimpannya ke file.
+     *
+     * @return void
+     */
+    public function generateKey(): void
+    {
+        $key = Key::createNewRandomKey();
+        file_put_contents($this->keyFilepath, $key->saveToAsciiSafeString());
     }
 }

@@ -47,7 +47,7 @@ final class EnvironmentEncryptorService implements EnvironmentEncryptorServiceCo
         }
 
         try {
-            return Crypto::decrypt($ciphertext, $this->keyService->getKey());
+            return Crypto::decrypt($ciphertext, $this->keyService->loadKey());
         } catch (WrongKeyOrModifiedCiphertextException $e) {
             throw new RuntimeException("Gagal mendekripsi '{$ciphertext}'. Pastikan kunci enkripsi benar.", 0, $e);
         }
@@ -65,7 +65,7 @@ final class EnvironmentEncryptorService implements EnvironmentEncryptorServiceCo
     public function encryptEnvironment(string $envPath, array $envKeys): bool
     {
         $encryptor = new EnvironmentEncryptor(
-            key: $this->keyService->getKey(),
+            key: $this->keyService->loadKey(),
             envPath: $envPath,
             envKeys: $envKeys
         );

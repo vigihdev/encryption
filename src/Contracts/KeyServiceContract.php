@@ -19,5 +19,12 @@ interface KeyServiceContract
      *
      * @return Key Objek Key dari Defuse.
      */
-    public function getKey(): Key;
+    public function loadKey(): Key;
+
+    /**
+     * Membuat kunci enkripsi baru.
+     *
+     * @return void
+     */
+    public function generateKey(): void;
 }
