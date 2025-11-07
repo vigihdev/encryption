@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+// console
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Vigihdev\Encryption\Command\{DefuseKeyGeneratorCommand, DefuseShowKeyCommand, EnvironmentDecryptorCommand, EnvironmentEncryptorCommand};
+use Vigihdev\Encryption\Contracts\EnvironmentEncryptorServiceContract;
+use VigihDev\SymfonyBridge\Config\ConfigBridge;
+use VigihDev\SymfonyBridge\Config\Service\ServiceLocator;
+
+ConfigBridge::boot(dirname(__DIR__));
+$service = ServiceLocator::get(EnvironmentEncryptorServiceContract::class);
+
+$application = new Application();
+$application->add(new EnvironmentEncryptorCommand(service: $service));
+$application->add(new EnvironmentDecryptorCommand(service: $service));
+$application->add(new DefuseKeyGeneratorCommand());
+$application->add(new DefuseShowKeyCommand());
+$application->run();

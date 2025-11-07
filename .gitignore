@@ -21,6 +21,6 @@ GEMINI.md
 
 # Amazon Q
 .amazonq/
-/bin
+# /bin
 /config
 /.env
