@@ -225,12 +225,12 @@ class EnvironmentDecryptorCommand extends Command
             if ($decryptedValue !== null) {
                 // Cari line yang mengandung key dan replace value-nya
                 $pattern = '/^(' . preg_quote($key, '/') . '=)(.*)$/m';
-                $replacement = '$1' . $decryptedValue;
+                $replacement = '${1}' . $decryptedValue;
                 $decryptedContent = preg_replace($pattern, $replacement, $decryptedContent);
             }
         }
 
-        if (file_put_contents($outputFullPath, $decryptedContent) === false) {
+        if ((bool) file_put_contents($outputFullPath, $decryptedContent) === false) {
             $io->error("Gagal menyimpan file: {$outputFile}");
             return;
         }
