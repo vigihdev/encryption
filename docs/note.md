@@ -1,6 +1,4 @@
 ```php
-<?php
-
 use Vigihdev\Encryption\Contracts\EnvironmentEncryptorServiceContract;
 use VigihDev\SymfonyBridge\Config\AttributeInjection\DependencyInjector;
 use VigihDev\SymfonyBridge\Config\AttributeInjection\Inject;
