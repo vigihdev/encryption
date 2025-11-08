@@ -28,6 +28,7 @@ class EnvironmentEncryptorCommand extends Command
 
     protected function configure(): void
     {
+
         $this
             ->addArgument(
                 'env-path',
@@ -38,7 +39,16 @@ class EnvironmentEncryptorCommand extends Command
                     return ['.env'];
                 }
             )
-            ->addArgument('env-keys', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Satu atau lebih kunci environment yang akan dienkripsi (contoh: APP_KEY DB_PASSWORD)')
+            ->addArgument(
+                'env-keys',
+                InputArgument::REQUIRED | InputArgument::IS_ARRAY,
+                'Satu atau lebih kunci environment yang akan dienkripsi (contoh: APP_KEY DB_PASSWORD)',
+                null,
+                function () {
+                    $dotEnvVars = getenv('SYMFONY_DOTENV_VARS') ? explode(',', getenv('SYMFONY_DOTENV_VARS')) : [];
+                    return $dotEnvVars;
+                }
+            )
             ->setHelp(
                 <<<'HELP'
                 Command ini memungkinkan Anda untuk mengenkripsi nilai dari variabel environment yang spesifik di dalam file .env.

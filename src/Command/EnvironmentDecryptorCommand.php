@@ -41,7 +41,17 @@ class EnvironmentDecryptorCommand extends Command
                     return ['.env'];
                 }
             )
-            ->addArgument('env-keys', InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'Satu atau lebih kunci environment yang akan didekripsi (kosongkan untuk semua variabel)')
+            ->addArgument(
+                'env-keys',
+                InputArgument::OPTIONAL | InputArgument::IS_ARRAY,
+                'Satu atau lebih kunci environment yang akan didekripsi (kosongkan untuk semua variabel)',
+                null,
+                function () {
+                    $dotEnvVars = getenv('SYMFONY_DOTENV_VARS') ? explode(',', getenv('SYMFONY_DOTENV_VARS')) : [];
+                    return $dotEnvVars;
+                }
+
+            )
             ->addOption(
                 'output',
                 'o',
